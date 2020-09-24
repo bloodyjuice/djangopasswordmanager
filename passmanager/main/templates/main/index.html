@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block content %}
+{% if passes %}
+{% for el in passes %}
+<div id="accordion">
+  <div class="card">
+    <div class="card-header">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target=#{{ el.title }} aria-expanded="true" aria-controls={{ el.title }}>
+            <h3>{{ el.title }}</h3>
+
+        </button>
+      </h5>
+    </div>
+
+    <div id={{ el.title }} class="collapse"  data-parent="#accordion">
+      <div class="card-body">
+        <p>Login: {{ el.login }}</p>
+        <p>Password: {{ el.password }}</p>
+
+        <form method="post">
+    {% csrf_token %}<br>
+
+    <td><a href="edit/{{el.id}}">Edit</a> or <a href="delete/{{el.id}}">Delete</a></td>
+
+</form>
+         </div>
+    </div>
+  </div>
+</div>
+    {% endfor %}
+{% else %}
+<h1>You haven`t Passes!</h1>
+{% endif %}
+{% endblock %}
